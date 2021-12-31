@@ -1,5 +1,21 @@
 /// <reference types="Cypress" />
 
+describe("REST API Books endpoint", () => {
+  it("should return 8 books", () => {
+    cy.getBooks().then((res) => {
+      expect(res.body.books.length).to.eq(8);
+    });
+  });
+  it("should contain 'title' and 'author'", () => {
+    cy.getBooks().then((res) => {
+      cy.wrap(res.body.books).each(($el) => {
+        expect($el).to.have.property("title");
+        expect($el).to.have.property("author");
+      });
+    });
+  });
+});
+
 describe("Search input UI", () => {
   it("should display the search input with placeholder Type to search", () => {
     cy.visit("https://demoqa.com/books");

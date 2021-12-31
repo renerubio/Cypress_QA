@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
-describe("Search input UI", () => {
-  it("should display the search input with placeholder Type to search", () => {
+describe("Login UI", () => {
+  it("should display the login input", () => {
     cy.visit("https://demoqa.com/books");
     cy.get("#login").should("be.visible");
   });
