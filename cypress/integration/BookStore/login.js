@@ -16,6 +16,5 @@ describe("Search input UI", () => {
     cy.get("#login").click();
     cy.get("#userName-label").should("be.visible");
     cy.get("#userName-value").contains("testtest");
-
   });
 });

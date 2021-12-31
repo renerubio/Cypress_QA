@@ -33,4 +33,3 @@ Cypress.Commands.add("BookStoreRequestResponseBody", () => {
   );
 });
 
-
