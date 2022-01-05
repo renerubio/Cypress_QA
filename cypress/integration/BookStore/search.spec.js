@@ -1,43 +1,39 @@
 /// <reference types="Cypress" />
-
-describe("REST API Books endpoint", () => {
-  it("should return 8 books", () => {
-    cy.getBooks().then((res) => {
-      expect(res.body.books.length).to.eq(8);
-    });
-  });
-  it("should contain 'title' and 'author'", () => {
-    cy.getBooks().then((res) => {
-      cy.wrap(res.body.books).each(($el) => {
-        expect($el).to.have.property("title");
-        expect($el).to.have.property("author");
-      });
-    });
-  });
-});
+import { searchPage } from "../../page-objects/";
 
 describe("Search input UI", () => {
   it("should display the search input with placeholder Type to search", () => {
-    cy.visit("https://demoqa.com/books");
-    cy.get("#searchBox").should("be.visible");
-    cy.get("#searchBox").should("have.attr", "placeholder", "Type to search");
+    searchPage.open();
+    searchPage.searchBox.should("be.visible");
+    searchPage.searchBox.should(
+      "have.attr",
+      "placeholder",
+      searchPage.placeholder
+    );
   });
-  it("when user types 'de' on search input, should refresh the books list with 4 rows", () => {
-    cy.get("#searchBox").type("de");
-    cy.get(".ReactTable").should("be.visible");
-    cy.get(".ReactTable .rt-tbody .mr-2 a").contains("Git Pocket Guide");
-    cy.get(".ReactTable .rt-tbody .mr-2 a").contains(
+  it(`when user types '${searchPage.deText}' on search input, should refresh the books list with 4 rows`, () => {
+    searchPage.searchBox.type(searchPage.deText);
+    searchPage.reactTable.should("be.visible");
+    searchPage.reactTableTextLink.should("contain.text", "Git Pocket Guide");
+    searchPage.reactTableTextLink.should(
+      "contain.text",
       "Learning JavaScript Design Patterns"
     );
-    cy.get(".ReactTable .rt-tbody .mr-2 a").contains(
+    searchPage.reactTableTextLink.should(
+      "contain.text",
       "Designing Evolvable Web APIs with ASP.NET"
     );
-    cy.get(".ReactTable .rt-tbody .mr-2 a").contains(
+    searchPage.reactTableTextLink.should(
+      "contain.text",
       "Understanding ECMAScript 6"
     );
   });
   it("when user types '  ' on search input, should refresh the books list with message 'No rows found'", () => {
-    cy.get("#searchBox").type("  ");
-    cy.get(".ReactTable").should("be.visible");
+    searchPage.searchBox.clear().type("  ");
+    searchPage.reactTable.should("contain.text", "No rows found");
+  });
+  it("when user types the special character '👾' on search input, should refresh the books list with message 'No rows found'", () => {
+    searchPage.searchBox.clear().type(searchPage.emojiText);
+    searchPage.reactTable.should("contain.text", "No rows found");
   });
 });

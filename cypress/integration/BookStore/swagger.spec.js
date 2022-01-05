@@ -1,25 +1,25 @@
 /// <reference types="Cypress" />
+import { swaggerPage } from "../../page-objects/";
 
 describe("Swagger API BookStoreV1BooksGet", () => {
   it("should open BookStore in BooksGet section", () => {
-    cy.visit("https://demoqa.com/swagger/#/BookStore/BookStoreV1BooksGet");
+    swaggerPage.open();
   });
   it("should display Try it out", () => {
-    cy.BookStoreTryOutBtn().should("be.visible");
+    swaggerPage.tryOutBtn.should("be.visible");
   });
   it("when clicks on 'Try it out' button, display 'Execute' button", () => {
-    cy.BookStoreTryOutBtn().click();
-    cy.BookStoreExecuteBtn().should("be.visible");
+    swaggerPage.tryOutBtn.click();
+    swaggerPage.executeBtn.should("be.visible");
   });
   it("when clicks on 'Execute' button, display a new Response, status 200 and Response Body", () => {
-    cy.BookStoreExecuteBtn().click();
-    cy.BookStoreRequestURL()
-      .contains("https://demoqa.com/BookStore/v1/Books");
-    cy.BookStoreRequestResponseStatus().contains("200"),
-      cy.BookStoreRequestResponseBody().contains("books");
+    swaggerPage.executeBtn.click();
+    swaggerPage.requestURL.contains(swaggerPage.url);
+    swaggerPage.requestResponseStatus.contains("200"),
+      swaggerPage.requestResponseBody.contains("books");
   });
   it("when clicks on 'Cancel' button, remove 'Execute' button", () => {
-    cy.BookStoreTryOutCancelBtn().click();
-    cy.BookStoreExecuteBtn().should("not.exist");
+    swaggerPage.tryOutCancelBtn.click();
+    swaggerPage.executeBtn.should("not.exist");
   });
 });
