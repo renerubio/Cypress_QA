@@ -9,17 +9,17 @@ describe("Swagger API BookStoreV1BooksGet", () => {
     swaggerPage.tryOutBtn.should("be.visible");
   });
   it("when clicks on 'Try it out' button, display 'Execute' button", () => {
-    swaggerPage.tryOutBtn.click();
+    swaggerPage.submitTryItOut();
     swaggerPage.executeBtn.should("be.visible");
   });
   it("when clicks on 'Execute' button, display a new Response, status 200 and Response Body", () => {
-    swaggerPage.executeBtn.click();
+    swaggerPage.submitExecute();
     swaggerPage.requestURL.contains(swaggerPage.url);
     swaggerPage.requestResponseStatus.contains("200"),
       swaggerPage.requestResponseBody.contains("books");
   });
   it("when clicks on 'Cancel' button, remove 'Execute' button", () => {
-    swaggerPage.tryOutCancelBtn.click();
+    swaggerPage.submitTryOutCancel();
     swaggerPage.executeBtn.should("not.exist");
   });
 });

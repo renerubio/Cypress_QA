@@ -7,45 +7,50 @@ describe("Login UI", () => {
     loginPage.login.should("be.visible");
   });
   it("when user click on login button, displays Login form", () => {
-    loginPage.login.click();
+    loginPage.submitLogin();
     loginPage.userForm.should("be.visible");
     loginPage.userFormTitle.should("contain.text", loginPage.welcome);
   });
   it("when user tries to login without username and password", () => {
-    loginPage.userName.clear();
-    loginPage.password.clear();
-    loginPage.login.click();
+    loginPage.clearUserPassFields();
+    loginPage.submitLogin();
     loginPage.userName.should("have.class", "is-invalid");
     loginPage.password.should("have.class", "is-invalid");
   });
   it("when user tries to login without password", () => {
-    loginPage.userName.type(loginPage.correctUserName);
-    loginPage.password.clear();
-    loginPage.login.click();
+    loginPage.fillUser(loginPage.correctUserName);
+    loginPage.clearPasswordField();
+    loginPage.submitLogin();
     loginPage.password.should("have.class", "is-invalid");
   });
   it("when user tries to login without username", () => {
     loginPage.userName.clear();
-    loginPage.password.type(loginPage.correctPassword);
-    loginPage.login.click();
+    loginPage.fillPassword(loginPage.correctPassword);
+    loginPage.submitLogin();
     loginPage.userName.should("have.class", "is-invalid");
   });
   it("when user tries to login with wrong username", () => {
-    loginPage.userName.clear().type(loginPage.wrongUserName);
-    loginPage.password.clear().type(loginPage.correctPassword);
-    loginPage.login.click();
+    loginPage.fillUser(loginPage.wrongUserName);
+    loginPage.fillPassword(loginPage.correctPassword);
+    loginPage.submitLogin();
     loginPage.output.should("contain.text", "Invalid username or password!");
   });
   it("when user tries to login with wrong password", () => {
-    loginPage.userName.clear().type(loginPage.correctUserName);
-    loginPage.password.clear().type(loginPage.wrongPassword);
-    loginPage.login.click();
+    loginPage.fillUser(loginPage.correctUserName);
+    loginPage.fillPassword(loginPage.wrongPassword);
+    loginPage.submitLogin();
     loginPage.output.should("contain.text", "Invalid username or password!");
   });
-  it("when user is logged", () => {
-    loginPage.userName.clear().type(loginPage.correctUserName);
-    loginPage.password.clear().type(loginPage.correctPassword);
-    loginPage.login.click();
+  it("when user tries to login with wrong user and password", () => {
+    loginPage.fillUser(loginPage.wrongUserName);
+    loginPage.fillPassword(loginPage.wrongPassword);
+    loginPage.submitLogin();
+    loginPage.output.should("contain.text", "Invalid username or password!");
+  });
+  it("when user tries to loggin with correct user and pass", () => {
+    loginPage.fillUser(loginPage.correctUserName);
+    loginPage.fillPassword(loginPage.correctPassword);
+    loginPage.submitLogin();
     loginPage.userNameValue.should("contain.text", loginPage.correctUserName);
   });
 });

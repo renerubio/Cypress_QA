@@ -12,7 +12,7 @@ describe("Search input UI", () => {
     );
   });
   it(`when user types '${searchPage.deText}' on search input, should refresh the books list with 4 rows`, () => {
-    searchPage.searchBox.type(searchPage.deText);
+    searchPage.fillSearchBox(searchPage.deText);
     searchPage.reactTable.should("be.visible");
     searchPage.reactTableTextLink.should("contain.text", "Git Pocket Guide");
     searchPage.reactTableTextLink.should(
@@ -29,11 +29,11 @@ describe("Search input UI", () => {
     );
   });
   it("when user types '  ' on search input, should refresh the books list with message 'No rows found'", () => {
-    searchPage.searchBox.clear().type("  ");
+    searchPage.fillSearchBox("  ");
     searchPage.reactTable.should("contain.text", "No rows found");
   });
   it("when user types the special character '👾' on search input, should refresh the books list with message 'No rows found'", () => {
-    searchPage.searchBox.clear().type(searchPage.emojiText);
+    searchPage.fillSearchBox(searchPage.emojiText);
     searchPage.reactTable.should("contain.text", "No rows found");
   });
 });

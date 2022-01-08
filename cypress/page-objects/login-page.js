@@ -18,6 +18,28 @@ class loginPageClass {
   open() {
     cy.visit("https://demoqa.com/books");
   }
+
+  clearUserPassFields() {
+    cy.get("#userName").clear();
+    cy.get("#password").clear();
+  }
+
+  submitLogin() {
+    cy.get("#login").click();
+  }
+  clearUserField() {
+    cy.get("#userName").clear();
+  }
+  clearPasswordField() {
+    cy.get("#password").clear();
+  }
+  fillUser(value) {
+    cy.get("#userName").clear().type(value);
+  }
+  fillPassword(value) {
+    cy.get("#password").clear().type(value);
+  }
+
   get login() {
     return cy.get("#login");
   }
