@@ -1,4 +1,4 @@
-# ABB QA Assignment by René Rubio
+# QA Assignment
 
 This repo contains an Assignment with the tests written in Cypress.
 
