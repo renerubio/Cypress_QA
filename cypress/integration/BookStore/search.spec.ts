@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-import { searchPage } from "../../page-objects/";
+import { searchPage } from "../../page-objects";
 
 describe("Search input UI", () => {
   it("should display the search input with placeholder Type to search", () => {

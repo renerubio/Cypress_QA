@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-import { loginPage } from "../../page-objects/";
+import { loginPage } from "../../page-objects";
 
 describe("Login UI", () => {
   it("should display the login input", () => {
